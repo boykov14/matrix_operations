@@ -42,8 +42,8 @@ public:
 
 	std::vector<int> getSize();
 
-	//float& matrix::operator[](int n);
 	std::vector<float>& matrix::operator[](int n);
+	float& getValAt(int n);
 
 	matrix sum();
 	matrix sumP();
@@ -61,6 +61,8 @@ public:
 	matrix getColumn(int c);
 
 	matrix getColumn(int c1, int c2);
+
+	matrix reshape(int i1, int i2, int x, int y);
 };
 
 #endif

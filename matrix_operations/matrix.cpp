@@ -324,14 +324,21 @@ std::vector<int> matrix::getSize() {
 }
 
 /*method that overwrites the [] operator
-@param integer n which is the index of the number to be retrieved from the matrix if the matrix were stretched into a vector
+*@param integer n which is the index of the number to be retrieved from the matrix if the matrix were stretched into a vector
 */
 std::vector<float>& matrix::operator[](int n) {
-	//int x = int(n / dimentions[1]);
-	//int y = n%dimentions[1];
-
-	//return mat[x][y];
 	return mat[n];
+}
+
+/**method that returns a value at a specific index in the matrix
+*@param the index in the matrix
+*@return the val at the specified index in the matrix
+*/
+float& matrix::getValAt(int n) {
+	int x = int(n / dimentions[1]);
+	int y = n%dimentions[1];
+
+	return mat[x][y];
 }
 
 /*function that determines the sum of the values in each column
@@ -483,4 +490,29 @@ matrix matrix::getColumn(int c1, int c2) {
 
 		return nM;
 	}
+}
+
+/**method which creates a new x by y matrix from the i1 to i2 element of the existing matrix
+@param i1 i2 giving the range of elements to be used, and x y as dimentions for the new matrix
+@return the resulting matrix
+*/
+matrix matrix::reshape(int i1, int i2, int x, int y) {
+	//checking that the operation is feasible
+	if (x * y != i2 - i1 + 1) {
+		std::cerr << "reshape dimentions and range do not match" << std::endl;
+		exit(1);
+	}
+	else if (i1 > i2 || (i1 < 0 || i2 >= dimentions[0] * dimentions[1])) {
+		std::cerr << "invalid range" << std::endl;
+		exit(1);
+	}
+
+	matrix nM(x, y);
+
+	for (int i = i1; i <= i2; i++) {
+		nM.getValAt(i - i1) = this->getValAt(i);
+	}
+
+	return nM;
+	
 }
