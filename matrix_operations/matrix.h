@@ -43,6 +43,7 @@ public:
 	std::vector<int> getSize();
 
 	std::vector<float>& matrix::operator[](int n);
+	matrix matrix::operator[](char c);
 	float& getValAt(int n);
 
 	matrix sum();

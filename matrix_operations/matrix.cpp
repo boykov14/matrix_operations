@@ -327,7 +327,29 @@ std::vector<int> matrix::getSize() {
 *@param integer n which is the index of the number to be retrieved from the matrix if the matrix were stretched into a vector
 */
 std::vector<float>& matrix::operator[](int n) {
+	//checking that the index is valid
+	if (n < 0 || n >= dimentions[0]) {
+		std::cerr << "invalid index" << std::endl;
+		exit(1);
+	}
 	return mat[n];
+}
+
+/**operator that returns a different matrix depending on the char provided
+*@param a char
+*@return a matrix which will vary depending on the char provided, otherwise if an invalid char is provided the program will exit
+*/
+matrix matrix::operator[](char c) {
+	//checking the char provided and returning appropriate response
+	//provide : to return a vector matrix of all the values in the matrix
+	if (c == ':') {
+		int total = dimentions[0] * dimentions[1];
+		return this->reshape(0, total-1, total, 1);
+	}
+	else {
+		std::cerr << "invalid char provided" << std::endl;
+		exit(1);
+	}
 }
 
 /**method that returns a value at a specific index in the matrix
